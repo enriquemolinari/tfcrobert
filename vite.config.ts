@@ -1,0 +1,33 @@
+import path from 'path';
+import { defineConfig, loadEnv } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig(({ mode }) => {
+    const env = loadEnv(mode, '.', '');
+    // Para GitHub Pages: el repositorio es "adriantual/presentacion"
+    // Así que el base path debe ser "/presentacion/"
+    const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1] || 'presentacion';
+    const base = repoName && !repoName.includes('.github.io') 
+      ? `/${repoName}/` 
+      : '/';
+    
+    return {
+      base: mode === 'production' ? base : '/',
+      publicDir: 'public',
+      server: {
+        port: 3000,
+        host: '0.0.0.0',
+      },
+      plugins: [react()],
+      define: {
+        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
+        'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
+        'import.meta.env.BASE_URL': JSON.stringify(mode === 'production' ? base : '/')
+      },
+      resolve: {
+        alias: {
+          '@': path.resolve(__dirname, '.'),
+        }
+      }
+    };
+});
