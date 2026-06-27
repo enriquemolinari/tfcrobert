@@ -32,7 +32,7 @@ export const Layout: React.FC<LayoutProps> = ({
     <div className="relative w-full h-screen flex flex-col bg-dark-bg text-slate-100 overflow-hidden font-sans selection:bg-unrn-red selection:text-white">
       {/* Top Bar (Optional logo or info) */}
       <div className="absolute top-0 left-0 w-full p-4 flex justify-between items-center z-50 opacity-50 hover:opacity-100 transition-opacity">
-        <div className="text-xs font-mono text-slate-400">Tesis: Vibe Coding</div>
+        <div className="text-xs font-mono text-slate-400">TFC: Infraestructura CI/CD Open Source</div>
         <button onClick={toggleFullScreen} className="p-2 hover:bg-white/10 rounded-full transition-colors">
           <Maximize2 size={16} />
         </button>
